@@ -1,21 +1,28 @@
-from question_model import Question
-from data import question_data
-from quiz_brain import QuizBrain
-from ui import Design
-
-question_bank = []
-for question in question_data:
-    question_text = question["question"]
-    question_answer = question["correct_answer"]
-    new_question = Question(question_text, question_answer)
-    question_bank.append(new_question)
+from tkinter import *
+import requests
 
 
-quiz = QuizBrain(question_bank)
-quiz_ui = Design(quiz)
+def get_quote():
+    data = requests.get(url="https://api.kanye.rest")
+    quote = data.json()
+    if data.status_code == 404:
+        raise Exception("Page not found")
+    # Write your code here.
+    canvas.itemconfig(quote_text,text=quote['quote'])
 
-# while quiz.still_has_questions():
-#     quiz.next_question()
 
-print("You've completed the quiz")
-print(f"Your final score was: {quiz.score}/{quiz.question_number}")
+
+window = Tk()
+window.title("Kanye Says...")
+window.config(padx=50, pady=50)
+
+canvas = Canvas(width=300, height=414)
+background_img = PhotoImage(file="background.png")
+canvas.create_image(150, 207, image=background_img)
+quote_text = canvas.create_text(150, 207, text="Kanye Quote Goes HERE", width=250, font=("Arial", 30, "bold"), fill="white")
+canvas.grid(row=0, column=0)
+
+kanye_img = PhotoImage(file="kanye.png")
+kanye_button = Button(image=kanye_img, highlightthickness=0, command=get_quote)
+kanye_button.grid(row=1, column=0)
+window.mainloop()
