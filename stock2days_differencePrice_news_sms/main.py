@@ -6,10 +6,10 @@ from twilio.rest import Client
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
-stock_url = "https://www.alphavantage.co/query"
+stock_endpoint = "https://www.alphavantage.co/query"
 stock_api_key = "***************************"
 
-news_url ="https://newsapi.org/v2/everything"
+news_endpoint ="https://newsapi.org/v2/everything"
 news_api_key = "***************************"
 
 account_sid = "AC60ca67a2c3938b3ab670501585eff434"
